@@ -21,15 +21,11 @@ def load_model(model_path=MODEL_PATH):
     return model
 
 # 예측 함수
-def predict_from_keypoints(keypoints_30x154, model=None):
-    if model is None:
-        model = load_model()
+def predict_from_keypoints(keypoints_seq, model):
+    if isinstance(keypoints_seq, list):
+        keypoints_seq = np.array(keypoints_seq)
 
-    if isinstance(keypoints_30x154, list): 
-        keypoints_30x154 = np.array(keypoints_30x154)
-
-    input_tensor = torch.tensor(keypoints_30x154, dtype=torch.float32).unsqueeze(0) 
-
+    input_tensor = torch.tensor(keypoints_seq, dtype=torch.float32).unsqueeze(0)  # (1, 30, 258)
     with torch.no_grad():
         output = model(input_tensor)
         pred_idx = output.argmax(dim=1).item()
