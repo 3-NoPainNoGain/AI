@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 정확한 파일 경로 생성
 CLASSES_PATH = os.path.join(BASE_DIR, "datasets", "processed", "classes.npy")
-MODEL_PATH = os.path.join(BASE_DIR, "models", "model_val_60.61_20250518.pth")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "augmentation_model_val_95.92_20250514.pth")
 
 # 클래스 정보 로딩
 classes = np.load(CLASSES_PATH, allow_pickle=True)
