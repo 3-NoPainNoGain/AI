@@ -3,7 +3,7 @@ import torch.nn as nn
 class SignLanguage1DCNN(nn.Module):
     def __init__(self, num_classes):
         super(SignLanguage1DCNN, self).__init__()
-        self.conv1 = nn.Conv1d(154, 64, kernel_size=3, padding=1)
+        self.conv1 = nn.Conv1d(258, 64, kernel_size=3, padding=1)
         self.bn1 = nn.BatchNorm1d(64)
         self.conv2 = nn.Conv1d(64, 128, kernel_size=3, padding=1)
         self.bn2 = nn.BatchNorm1d(128)
