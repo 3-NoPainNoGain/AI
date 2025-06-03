@@ -7,6 +7,3 @@ MediaPipe를 활용해 수어 영상으로부터 키포인트 데이터를 추�
 - MediaPipe: 영상에서 3D 키포인트 추출 (Face, Hands, Pose)
 - NumPy / Pandas: 데이터 처리 및 저장
 - PyTorch: 모델 구축, 학습, 추론
-- Matplotlib / Seaborn: 학습 시각화 (loss, accuracy plot)
-
-### 📁 주요 디렉토리 구조
