@@ -1,29 +1,35 @@
-# ai_model_258/predict.py
+# predict.py
 import os
 import numpy as np
 import torch
-from model import SignLanguage1DCNN
+from .model import SignLanguageBiLSTM # 모델 클래스 임포트
 
+# 장치 설정
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# 경로 설정
 BASE_DIR = os.path.dirname(__file__)
 DATA_DIR = os.path.join(BASE_DIR, "datasets", "processed")
-MODEL_PATH = os.path.join(BASE_DIR, "models", "best_model_CNN_org.pth")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "model_bilstm_val_100_20250728.pth")
 
+# 클래스 로딩
 classes = np.load(os.path.join(DATA_DIR, "classes.npy"), allow_pickle=True)
 
+# 모델 로딩 함수
 def load_model():
-    model = SignLanguage1DCNN(num_classes=len(classes)).to(device)
+    model = SignLanguageBiLSTM(num_classes=len(classes)).to(device)
     model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
     model.eval()
     return model, classes
 
+# 예측 함수
 def predict_from_keypoints(keypoints_30x258, model, classes):
     if isinstance(keypoints_30x258, list):
         keypoints_30x258 = np.array(keypoints_30x258)
+
     if keypoints_30x258.shape != (30, 258):
         raise ValueError(f"❗ 입력 shape 오류: 기대값은 (30, 258), 현재는 {keypoints_30x258.shape}")
-    
+
     input_tensor = torch.tensor(keypoints_30x258, dtype=torch.float32).unsqueeze(0).to(device)
 
     with torch.no_grad():
